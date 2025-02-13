@@ -39,13 +39,18 @@ fun SecondScreen(
     val imageDisk by viewModel.imageDisk.collectAsStateWithLifecycle()
 
     LaunchedEffect(true) {
-        ImageDownloader.saveImagesToInternal(context)
+        if (!ImageDownloader.isImagesSaved(context)) {  // ✅ التحقق قبل الحفظ
+            ImageDownloader.saveImagesToInternal(context)
+        }
+
         viewModel.loadImagesFromDisk(context)
+
         if (event is Contract.Event.Navigated) {
             component.onEvent(ScreenBEvent.ClickButtonB)
             viewModel.clearEvent()
         }
     }
+
 
     Box(
         modifier = Modifier
