@@ -39,7 +39,7 @@ fun SecondScreen(
     val imageDisk by viewModel.imageDisk.collectAsStateWithLifecycle()
 
     LaunchedEffect(true) {
-        if (!ImageDownloader.isImagesSaved(context)) {  // ✅ التحقق قبل الحفظ
+        if (!ImageDownloader.isImagesSaved(context)) {
             ImageDownloader.saveImagesToInternal(context)
         }
 

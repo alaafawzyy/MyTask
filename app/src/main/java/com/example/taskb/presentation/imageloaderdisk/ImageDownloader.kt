@@ -24,7 +24,7 @@ object ImageDownloader {
 
         imageIds.forEachIndexed { index, resId ->
             val file = File(imagesDir, "image_$index.jpg")
-            if (!file.exists()) {  // ✅ التحقق قبل الحفظ
+            if (!file.exists()) {
                 val drawable = ContextCompat.getDrawable(context, resId)
                 if (drawable is BitmapDrawable) {
                     val bitmap = drawable.bitmap
@@ -37,7 +37,7 @@ object ImageDownloader {
 
         svgIds.forEachIndexed { index, resId ->
             val file = File(imagesDir, "image_svg_$index.svg")
-            if (!file.exists()) {  // ✅ التحقق قبل الحفظ
+            if (!file.exists()) {
                 context.resources.openRawResource(resId).use { inputStream ->
                     file.outputStream().use { outputStream ->
                         inputStream.copyTo(outputStream)
