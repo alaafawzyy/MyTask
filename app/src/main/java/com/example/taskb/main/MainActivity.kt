@@ -14,20 +14,20 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.slid
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 
-import com.example.taskb.screen.ScreenA.FirstScreen
-import com.example.taskb.screen.ScreenA.SecondScreen
-import com.example.taskb.screen.ScreenA.ThirdScreen
-import com.example.taskb.screen.navigation.RootComponent
+import com.example.taskb.presentation.screen.FirstScreen
+import com.example.taskb.presentation.screen.SecondScreen
+import com.example.taskb.presentation.screen.ThirdScreen
+import com.example.taskb.presentation.navigation.root.RootComponent
 import com.example.taskb.ui.theme.TaskBTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             TaskBTheme {
                 App(root = RootComponent(componentContext = defaultComponentContext()))
-         //RootComponent(componentContext = defaultComponentContext())
             }
         }
     }

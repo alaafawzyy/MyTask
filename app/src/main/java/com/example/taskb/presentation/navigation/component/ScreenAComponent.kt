@@ -1,7 +1,7 @@
-package com.example.taskb.screen.navigation
+package com.example.taskb.presentation.navigation.component
 
 import com.arkivanov.decompose.ComponentContext
-import com.example.taskb.screen.event.ScreenAEvent
+import com.example.taskb.presentation.navigation.event.ScreenAEvent
 
 class ScreenAComponent (
     componentContext: ComponentContext,
@@ -11,7 +11,6 @@ class ScreenAComponent (
     fun onEvent(event: ScreenAEvent) {
         when (event) {
             ScreenAEvent.ClickButtonA -> onNavigateToScreenB()
-            ScreenAEvent.RefreshImages -> TODO()
         }
     }
 

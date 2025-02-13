@@ -96,5 +96,8 @@ dependencies {
 
     implementation("com.arkivanov.decompose:decompose:2.0.0")
     implementation("com.arkivanov.decompose:extensions-compose-jetbrains:2.0.0")
+    implementation("io.coil-kt:coil-svg:2.5.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
     implementation(libs.kotlinx.serialization.json)
 }

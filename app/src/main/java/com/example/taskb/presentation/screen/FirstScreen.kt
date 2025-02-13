@@ -1,4 +1,4 @@
-package com.example.taskb.screen.ScreenA
+package com.example.taskb.presentation.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -18,35 +16,42 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.taskb.contract.Contract
-import com.example.taskb.screen.event.ScreenAEvent
-import com.example.taskb.screen.navigation.ScreenAComponent
+import com.example.taskb.presentation.contract.Contract
+import com.example.taskb.presentation.navigation.event.ScreenAEvent
+import com.example.taskb.presentation.navigation.component.ScreenAComponent
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun FirstScreen(component: ScreenAComponent, viewModel: FirstScreenViewModel = viewModel()) {
+fun FirstScreen(component: ScreenAComponent, viewModel: ScreensViewModel = viewModel()) {
     val event = viewModel.event.value
+    val state = viewModel.state.value
+    val imageUrls = viewModel.imageUrls.value
 
     LaunchedEffect(event) {
         if (event is Contract.Event.Navigated) {
             component.onEvent(ScreenAEvent.ClickButtonA)
+            viewModel.clearEvent()
         }
     }
-
-    val imageUrls = viewModel.imageUrls.value
-    val state = viewModel.state.value
-
+    
     when (state) {
-        is Contract.States.Loading -> CircularProgressIndicator(modifier = Modifier.fillMaxSize().padding(16.dp))
+        is Contract.States.Loading -> Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
         is Contract.States.Success -> LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(imageUrls) { imageUrl -> ImageItem(imageUrl, component ) }
         }
-        is Contract.States.Error -> Text("خطأ: ${(state as Contract.States.Error).message}", modifier = Modifier.padding(16.dp))
+        is Contract.States.Error -> Text("error: ${(state).message}", modifier = Modifier.padding(16.dp))
         else -> {}
     }
     Box (modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.CenterEnd){
         IconButton(
-            onClick = { viewModel.invokeAction(Contract.Action.NavigateToScreenB) }
+            onClick = { viewModel.invokeAction(Contract.Action.NavigateToScreenB)
+
+            }
         ) {
             Icon(
                 imageVector = Icons.Filled.KeyboardArrowRight,
@@ -61,7 +66,7 @@ fun FirstScreen(component: ScreenAComponent, viewModel: FirstScreenViewModel = v
 
 @Composable
 
-fun ImageItem(imageUrl: String,component: ScreenAComponent,) {
+fun ImageItem(imageUrl: String, component: ScreenAComponent,) {
     Image(
         painter = rememberAsyncImagePainter(imageUrl),
         contentDescription = "Image",
@@ -71,7 +76,5 @@ fun ImageItem(imageUrl: String,component: ScreenAComponent,) {
             .height(200.dp)
             .padding(8.dp)
     )
-
-
 
 }

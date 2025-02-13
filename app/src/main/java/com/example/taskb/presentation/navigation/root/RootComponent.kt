@@ -1,4 +1,4 @@
-package com.example.taskb.screen.navigation
+package com.example.taskb.presentation.navigation.root
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
@@ -6,8 +6,10 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
-import kotlinx.serialization.Serializable
 import android.os.Parcelable
+import com.example.taskb.presentation.navigation.component.ScreenAComponent
+import com.example.taskb.presentation.navigation.component.ScreenBComponent
+import com.example.taskb.presentation.navigation.component.ScreenCComponent
 import kotlinx.parcelize.Parcelize
 
 
@@ -40,7 +42,7 @@ class RootComponent(
             Configuration.ScreenB -> Child.ScreenB(
                 ScreenBComponent(
                     componentContext = context,
-                    onNavigateToScreenC = {navigation.push(Configuration.ScreenB)},
+                    onNavigateToScreenC = { navigation.push(Configuration.ScreenC) },
                     onGoBack = {
                         navigation.pop()
                     }
